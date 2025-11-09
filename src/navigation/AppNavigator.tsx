@@ -11,6 +11,7 @@ import DoctorDashboard from '../screens/doctor/DoctorDashboard';
 import PatientEvaluationScreen from '../screens/pharmacist/PatientEvaluationScreen';
 import DoctorReviewScreen from '../screens/doctor/DoctorReviewScreen';
 import PrescriptionGenerationScreen from '../screens/prescription/PrescriptionGenerationScreen';
+import SignatureCaptureScreen from '../screens/SignatureCaptureScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -48,6 +49,7 @@ export default function AppNavigator() {
           <Stack.Screen name="Login" component={LoginScreen} />
         ) : (
           <>
+            <Stack.Screen name="SignatureCapture" component={SignatureCaptureScreen} />
             {user.role === 'pharmacist' && (
               <Stack.Screen name="PharmacistTabs" component={PharmacistTabNavigator} options={{ headerShown: false }} />
             )}

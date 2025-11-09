@@ -1,18 +1,35 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, Card, Button } from 'react-native-paper';
+import { View, StyleSheet, FlatList } from 'react-native';
+import { Text, Card, Button, List } from 'react-native-paper';
+import { useCDSS } from '../../contexts/CDSSContext';
 
 export default function PharmacistDashboard({ navigation }: any) {
+  const { getUserCases } = useCDSS();
+  const cases = getUserCases();
+
+  const handleCasePress = (caseId: string) => {
+    navigation.navigate('PatientEvaluationScreen', { id: caseId });
+  };
+
   return (
     <View style={styles.container}>
       <Text variant="headlineMedium">Pharmacist Dashboard</Text>
       <Card style={styles.card}>
         <Card.Title title="Pending Cases" />
         <Card.Content>
-          <Text>You have 3 pending patient evaluations.</Text>
-          <Button mode="contained" onPress={() => navigation.navigate('Evaluations')}>
-            View Cases
-          </Button>
+          <Text>You have {cases.length} pending patient evaluations.</Text>
+          <FlatList
+            data={cases}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <List.Item
+                title={item.patientName}
+                description={`File: ${item.fileNo} - ${item.age}y, ${item.gender}`}
+                onPress={() => handleCasePress(item.id)}
+                right={(props) => <List.Icon {...props} icon="chevron-right" />}
+              />
+            )}
+          />
         </Card.Content>
       </Card>
     </View>
