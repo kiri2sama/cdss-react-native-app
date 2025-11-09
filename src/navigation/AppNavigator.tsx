@@ -54,7 +54,10 @@ export default function AppNavigator() {
               <Stack.Screen name="PharmacistTabs" component={PharmacistTabNavigator} options={{ headerShown: false }} />
             )}
             {user.role === 'doctor' && (
-              <Stack.Screen name="DoctorTabs" component={DoctorTabNavigator} options={{ headerShown: false }} />
+              <>
+                <Stack.Screen name="DoctorTabs" component={DoctorTabNavigator} options={{ headerShown: false }} />
+                <Stack.Screen name="DoctorReviewScreen" component={DoctorReviewScreen} />
+              </>
             )}
           </>
         )}

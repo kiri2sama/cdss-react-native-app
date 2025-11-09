@@ -16,5 +16,5 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 });
 
 // Neon database client
-const neonConnectionString = 'YOUR_NEON_CONNECTION_STRING'; // Replace with Neon connection string
+const neonConnectionString = 'postgresql://neondb_owner:npg_DEz6vpA2MOBJ@ep-twilight-breeze-a2dlvdlb-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
 export const sql = neon(neonConnectionString);
