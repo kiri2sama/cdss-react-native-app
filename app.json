@@ -3,6 +3,7 @@
     "name": "cdss-rn-app",
     "slug": "cdss-rn-app",
     "version": "1.0.0",
+    "owner": "36.6",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

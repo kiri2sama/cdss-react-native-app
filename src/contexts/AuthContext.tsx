@@ -24,18 +24,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       async (event, session) => {
         if (session?.user) {
           // Fetch user profile
-          const { data: profile } = await supabase
+          const { data: profile, error } = await supabase
             .from('profiles')
             .select('*')
             .eq('id', session.user.id)
             .single();
 
-          if (profile) {
+          if (profile && !error) {
             setUser({
-              id: profile.id,
+              id: (profile as any).id,
               email: session.user.email!,
-              role: profile.role,
-              name: profile.name,
+              role: (profile as any).role as 'pharmacist' | 'doctor',
+              name: (profile as any).name,
             });
           }
         } else {
@@ -51,18 +51,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const checkAuthState = async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (session?.user) {
-      const { data: profile } = await supabase
+      const { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', session.user.id)
         .single();
 
-      if (profile) {
+      if (profile && !error) {
         setUser({
-          id: profile.id,
+          id: (profile as any).id,
           email: session.user.email!,
-          role: profile.role,
-          name: profile.name,
+          role: (profile as any).role as 'pharmacist' | 'doctor',
+          name: (profile as any).name,
         });
       }
     }

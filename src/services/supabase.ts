@@ -1,11 +1,12 @@
+// Note: Auth is handled by Supabase, data by Neon
 import { createClient } from '@supabase/supabase-js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Database } from '../types/database'; // We'll define this later
+import { neon } from '@neondatabase/serverless';
 
 const supabaseUrl = 'YOUR_SUPABASE_URL'; // Replace with actual URL
 const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY'; // Replace with actual key
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     storage: AsyncStorage,
     autoRefreshToken: true,
@@ -13,3 +14,7 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
     detectSessionInUrl: false,
   },
 });
+
+// Neon database client
+const neonConnectionString = 'YOUR_NEON_CONNECTION_STRING'; // Replace with Neon connection string
+export const sql = neon(neonConnectionString);
